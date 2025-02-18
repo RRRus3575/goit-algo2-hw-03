@@ -35,7 +35,7 @@ G.add_node("Сток")
 cap_terminal_1 = sum(weight for u, v, weight in edges if u == "Термінал 1")
 cap_terminal_2 = sum(weight for u, v, weight in edges if u == "Термінал 2")
 
-#Додаємо віртуальне джерело
+# Додаємо віртуальне джерело
 G.add_edge("Джерело", "Термінал 1", capacity=cap_terminal_1)
 G.add_edge("Джерело", "Термінал 2", capacity=cap_terminal_2)
 
@@ -55,7 +55,7 @@ print(f"Максимальний потік у системі: {flow_value}")
 print("Розподіл потоку:")
 for u, v_flow in flow_dict.items():
     for v, flow in v_flow.items():
-        if flow > 0:  # Показываем только потоки > 0
+        if flow > 0:  
             print(f"{u} → {v}: {flow}")
 
 pos = {
