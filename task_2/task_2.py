@@ -1,7 +1,7 @@
 from BTrees.OOBTree import OOBTree
-from sortedcontainers import SortedDict
 import timeit
 import pandas as pd
+
 
 
 df = pd.read_csv(r"D:\projects\Github\goit-algo2-hw-03\task_2\generated_items_data.csv")
@@ -17,7 +17,7 @@ for _, row in df.iterrows():
     }
 
 # Створення dict
-sd = SortedDict()
+sd = {}
 # Додавання з файлу
 for _, row in df.iterrows():
     sd[row["ID"]]= {
@@ -46,13 +46,34 @@ def add_item_to_dict(name, category, price):
 
 
 # Пошук об'єктів
-def range_query_tree():
-    pass
+def range_query_tree(min_price, max_price):
+    return list(tree.items(min_price, max_price))
 
-def range_query_dict():
-    pass
+def range_query_dict(min_price, max_price):
+    return [
+        (key, value) for key, value in sd.items()
+        if min_price <= value["Price"] <= max_price
+    ]
 
-add_item_to_tree("shirt", "Clothes", 100)
+# Збереження результатів у файл
+def save_results_to_txt(file_path, time_tree, time_dict):
+    
+    with open(file_path, 'a', encoding="utf-8") as file:
+        file.write(f"Тест продуктивності:\n")
+        file.write(f"OOBTree: {time_tree:.6f} секунд (100 запитів)\n")
+        file.write(f"dict: {time_dict:.6f} секунд (100 запитів)\n")
+        file.write("=" * 40 + "\n")
 
 
+# Тестування
+min_price, max_price = 10, 80
+
+time_tree = timeit.timeit(lambda: range_query_tree(min_price, max_price), number=100)
+time_dict = timeit.timeit(lambda: range_query_dict(min_price, max_price), number=100)
+
+print(f"Час виконання для OOBTree: {time_tree:.6f} секунд (100 запитів)")
+print(f"Час виконання для dict: {time_dict:.6f} секунд (100 запитів)")
+
+
+save_results_to_txt("performance_results.txt", time_tree, time_dict)
 
