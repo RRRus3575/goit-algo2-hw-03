@@ -4,7 +4,7 @@ import pandas as pd
 
 
 
-df = pd.read_csv(r"D:\projects\Github\goit-algo2-hw-03\task_2\generated_items_data.csv")
+df = pd.read_csv(r"./task_2/generated_items_data.csv")
 
 # Створення OOBTree
 tree = OOBTree()
@@ -75,5 +75,5 @@ print(f"Час виконання для OOBTree: {time_tree:.6f} секунд (
 print(f"Час виконання для dict: {time_dict:.6f} секунд (100 запитів)")
 
 
-save_results_to_txt("performance_results.txt", time_tree, time_dict)
+save_results_to_txt("./task_2/performance_results.txt", time_tree, time_dict)
 
